@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a63b305f0e1cef49bbc99cef8e889c7
+guid: 98fd2d868b491ff4280a7061b534b324
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,64 +123,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Egg
+      name: Branch
       rect:
         serializedVersion: 2
-        x: 8
-        y: 9
-        width: 53
-        height: 81
+        x: 5
+        y: 11
+        width: 32
+        height: 9
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6608c252b073613489dc54b79b15a95c
-      internalID: 479033500
+      spriteID: 1f7e860505dd2bd46b9e86a6e6fe70ab
+      internalID: -944254499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonOld
+      name: Leaf
       rect:
         serializedVersion: 2
-        x: 75
-        y: 19
-        width: 34
-        height: 51
+        x: 72
+        y: 7
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68820b135e51d5c4da140275ec0b10eb
-      internalID: 786795732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GlitterEffect
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 18
-        width: 146
-        height: 53
-      alignment: 9
-      pivot: {x: 0.5446558, y: 0.2266366}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be115b236dded524fa9e8ffa8a4ab971
-      internalID: -1842809494
+      spriteID: f0382e725886dec40a8cae1efecec115
+      internalID: -318505415
       vertices: []
       indices: 
       edges: []
@@ -196,9 +175,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ButtonOld: 786795732
-      Egg: 479033500
-      GlitterEffect: -1842809494
+      Branch: -944254499
+      Leaf: -318505415
+      collectibles_1: 1041011446
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

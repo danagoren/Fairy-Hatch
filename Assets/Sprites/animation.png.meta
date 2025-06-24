@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6a63b305f0e1cef49bbc99cef8e889c7
+guid: 2a1e769baad9d104e9db12b2cf4e623c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Egg
+      name: ButtonOff
       rect:
         serializedVersion: 2
-        x: 8
-        y: 9
-        width: 53
-        height: 81
+        x: 6
+        y: 7
+        width: 33
+        height: 34
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,50 +137,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6608c252b073613489dc54b79b15a95c
-      internalID: 479033500
+      spriteID: 3ea3ce58398488747838bd1e8c2d9fc0
+      internalID: -244581777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ButtonOld
+      name: Glitter2
       rect:
         serializedVersion: 2
-        x: 75
-        y: 19
-        width: 34
+        x: 61
+        y: 10
+        width: 147
         height: 51
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68820b135e51d5c4da140275ec0b10eb
-      internalID: 786795732
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GlitterEffect
-      rect:
-        serializedVersion: 2
-        x: 126
-        y: 18
-        width: 146
-        height: 53
       alignment: 9
-      pivot: {x: 0.5446558, y: 0.2266366}
+      pivot: {x: 0.5146531, y: 0.22631533}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be115b236dded524fa9e8ffa8a4ab971
-      internalID: -1842809494
+      spriteID: bb433a988918c4c4eb0746c48c697a85
+      internalID: -1787029495
       vertices: []
       indices: 
       edges: []
@@ -196,9 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ButtonOld: 786795732
-      Egg: 479033500
-      GlitterEffect: -1842809494
+      ButtonOff: -244581777
+      Glitter2: -1787029495
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
