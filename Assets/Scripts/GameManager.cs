@@ -6,7 +6,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private string[] Items = {"NestLevel", "XP", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch"};
+    private static string[] Items = { "NestLevel", "XP", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
+    private static int[] Price = { 10, 10, 10 };
+    public static bool egg = false; // a flag to know if the is an egg in the nest
+    public static bool isEggAvailable = false; // a flag to know if we have enough collectables to purchase an egg
+
 
     void Start()
     {
@@ -15,50 +19,58 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        isEggAvailable = IsEggAvailable(); // update flag
+        //when timer hits 0, HatchEgg()
         PrintTest(); //temp
     }
 
-    void PrintTest(){
+    void PrintTest()
+    {
         string testStr = "";
         for (int i = 0; i < Items.Length; i++)
         {
             testStr += Items[i] + ": " + PlayerPrefs.GetInt(Items[i]);
-            if (i < Items.Length - 1) 
+            if (i < Items.Length - 1)
             {
-                testStr += ",    "; 
+                testStr += ",    ";
             }
         }
         Debug.Log(testStr);
     }
 
-    private void SetInventory(){
+    private void SetInventory()
+    {
         PlayerPrefs.SetInt("NestLevel", 1);
         for (int i = 1; i < Items.Length; i++)
         {
-            PlayerPrefs.SetInt(Items[i], 0);        
-        }    
+            PlayerPrefs.SetInt(Items[i], 0);
+        }
     }
-    public static void AddCollectable(string str, int num){
+    public static void AddCollectable(string str, int num)
+    {
         PlayerPrefs.SetInt(str, (PlayerPrefs.GetInt(str) + num));
-        AddXP(str, num);
+        if (str == "Fairy1" || str == "Fairy2" || str == "Fairy3")
+        {
+            AddXP(20 * num);
+        }
+        else
+        {
+            AddXP(5 * num);
+        }
     }
 
-    private static void AddXP(string str, int num){
-        if (str == "Fairy1" || str == "Fairy2" || str == "Fairy3") 
+    private static void AddXP(int num)
+    {
+        PlayerPrefs.SetInt("XP", (PlayerPrefs.GetInt("XP") + (num)));
+        if (NestUpgradeNeeded())
         {
-            PlayerPrefs.SetInt("XP", (PlayerPrefs.GetInt("XP") + (20*num)));
-        }
-        else 
-        {
-            PlayerPrefs.SetInt("XP", (PlayerPrefs.GetInt("XP") + (5*num)));
-        }
-        if (NestUpgradeNeeded()){
             UpgradeNest();
         }
     }
 
     //Checks if the nest need to be upgraded based on the XP count. 
-    private static bool NestUpgradeNeeded(){
+    private static bool NestUpgradeNeeded()
+    {
         switch (PlayerPrefs.GetInt("XP"))
         {
             case var n when n < 20: return (PlayerPrefs.GetInt("NestLevel") == 1);
@@ -69,8 +81,44 @@ public class GameManager : MonoBehaviour
         return (PlayerPrefs.GetInt("NestLevel") == 5);
     }
 
-    private static void UpgradeNest(){
+    private static void UpgradeNest()
+    {
         PlayerPrefs.SetInt("NestLevel", (PlayerPrefs.GetInt("NestLevel") + 1));
         //upgrade nest's sprite
+    }
+
+    private bool IsEggAvailable()
+    {
+        for (int i = 0; i < Price.Length; i++)
+        {
+            if (PlayerPrefs.GetInt(Items[i+2]) < (PlayerPrefs.GetInt("NestLevel") * Price[i]))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void BuyEgg()
+    {
+        //add an egg sprite to the nest
+        for (int i = 0; i < Price.Length; i++)
+        {
+            PlayerPrefs.SetInt(Items[i + 2], (PlayerPrefs.GetInt(Items[i + 2]) - PlayerPrefs.GetInt("NestLevel") * Price[i]));
+        } 
+        egg = true;
+    }
+
+    public void HatchEgg()
+    {
+        //change egg's sprite to a hatched egg
+        //add gift prefab
+        //add fairy prefab
+    }
+
+    public static void CollectEgg()
+    {
+        //remove egg's sprite
+        egg = false;
     }
 }
