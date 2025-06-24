@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static string[] Items = { "NestLevel", "XP", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
-    private static int[] Price = { 10, 10, 10 };
+    private static string[] Items = { "NestLevel", "XP", "Egg", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
+    private static int[] Price = { 3, 3, 3 };
     public static bool egg = false; // a flag to know if the is an egg in the nest
     public static bool isEggAvailable = false; // a flag to know if we have enough collectables to purchase an egg
 
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < Price.Length; i++)
         {
-            if (PlayerPrefs.GetInt(Items[i+2]) < (PlayerPrefs.GetInt("NestLevel") * Price[i]))
+            if (PlayerPrefs.GetInt(Items[i+3]) < (PlayerPrefs.GetInt("Egg") * Price[i]))
             {
                 return false;
             }
@@ -104,9 +104,10 @@ public class GameManager : MonoBehaviour
         //add an egg sprite to the nest
         for (int i = 0; i < Price.Length; i++)
         {
-            PlayerPrefs.SetInt(Items[i + 2], (PlayerPrefs.GetInt(Items[i + 2]) - PlayerPrefs.GetInt("NestLevel") * Price[i]));
-        } 
+            PlayerPrefs.SetInt(Items[i + 3], (PlayerPrefs.GetInt(Items[i + 3]) - PlayerPrefs.GetInt("NestLevel") * Price[i]));
+        }
         egg = true;
+        PlayerPrefs.SetInt("Egg", PlayerPrefs.GetInt("Egg") + 1);
     }
 
     public void HatchEgg()
