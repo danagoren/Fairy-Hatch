@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2a1e769baad9d104e9db12b2cf4e623c
+guid: cc0dd540141ae1f4faa7ef46c11797a2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,43 +123,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OldOff
+      name: EggOpen
       rect:
         serializedVersion: 2
-        x: 6
-        y: 7
-        width: 33
-        height: 34
+        x: 238
+        y: 79
+        width: 53
+        height: 52
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ea3ce58398488747838bd1e8c2d9fc0
-      internalID: -244581777
+      spriteID: fa06427ec1665924aa0113f1e2902d5b
+      internalID: -1958603221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Glitter2
+      name: ButtonOn
       rect:
         serializedVersion: 2
-        x: 61
-        y: 10
-        width: 147
+        x: 212
+        y: 2
+        width: 34
         height: 51
-      alignment: 9
-      pivot: {x: 0.5146531, y: 0.22631533}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb433a988918c4c4eb0746c48c697a85
-      internalID: -1787029495
+      spriteID: af2b88ad65063f44ea6f62d83d8118d1
+      internalID: 682286369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonOff
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 3
+        width: 34
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2833f4ba8b2b2454ea625f035808e290
+      internalID: -1065175167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ButtonInfo
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 7
+        width: 16
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8734b152b207c6c42bdaa94ee5289415
+      internalID: -951529793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InfoOverlay
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 11
+        width: 184
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f6361610e376cd4c95242a772be4f3d
+      internalID: 1070068115
       vertices: []
       indices: 
       edges: []
@@ -175,8 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Glitter2: -1787029495
-      OldOff: -244581777
+      ButtonInfo: -951529793
+      ButtonOff: -1065175167
+      ButtonOn: 682286369
+      EggOpen: -1958603221
+      InfoOverlay: 1070068115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
