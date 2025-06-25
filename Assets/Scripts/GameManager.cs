@@ -8,22 +8,56 @@ public class GameManager : MonoBehaviour
 {
     private static string[] Items = { "NestLevel", "XP", "Egg", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
     private static int[] Price = { 3, 3, 3 };
-    public static bool egg = false; // a flag to know if the is an egg in the nest
+    //public static bool egg = false; // a flag to know if the is an egg in the nest
+    [SerializeField] public GameObject egg;
+    SpriteRenderer eggSprite;
+    [SerializeField] Sprite WholeEgg;
+    [SerializeField] Sprite HatchedEgg;
+
     public static bool isEggAvailable = false; // a flag to know if we have enough collectables to purchase an egg
 
 
     void Start()
     {
+        eggSprite = egg.GetComponent<SpriteRenderer>();
+        eggSprite.sprite = WholeEgg;
+        egg.SetActive(false);
         SetInventory();
+        //flags:
+        PlayerPrefs.SetInt("PendingEgg", 0);
+        PlayerPrefs.SetInt("EggHatched", 0);
+        PlayerPrefs.SetInt("FairyCollected", 0);
+        //tests:
+        Test();
     }
 
     void Update()
     {
         isEggAvailable = IsEggAvailable(); // update flag
-        //when timer hits 0, HatchEgg()
-        PrintTest(); //temp
+        if (PlayerPrefs.GetInt("PendingEgg") == 1)
+        {
+            PlayerPrefs.SetInt("PendingEgg", 0);
+            BuyEgg();
+        }
+        if (PlayerPrefs.GetInt("EggHatched") == 1)
+        {
+            PlayerPrefs.SetInt("EggHatched", 0);
+            HatchEgg();
+        }
+        if (PlayerPrefs.GetInt("FairyCollected") == 1)
+        {
+            PlayerPrefs.SetInt("FairyCollected", 0);
+            CollectEgg();
+        }
+        //PrintTest(); //temp
     }
 
+    void Test()
+    {
+        PlayerPrefs.SetInt("Flowers1", 1000);
+        PlayerPrefs.SetInt("Flowers2", 1000);
+        PlayerPrefs.SetInt("Flowers3", 1000);
+    }
     void PrintTest()
     {
         string testStr = "";
@@ -51,6 +85,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt(str, (PlayerPrefs.GetInt(str) + num));
         if (str == "Fairy1" || str == "Fairy2" || str == "Fairy3")
         {
+            PlayerPrefs.SetInt("FairyCollected", 1);
             AddXP(20 * num);
         }
         else
@@ -87,11 +122,15 @@ public class GameManager : MonoBehaviour
         //upgrade nest's sprite
     }
 
-    private bool IsEggAvailable()
+    public bool IsEggAvailable()
     {
+        if (egg.activeSelf)
+        {
+            return false;
+        }
         for (int i = 0; i < Price.Length; i++)
         {
-            if (PlayerPrefs.GetInt(Items[i+3]) < (PlayerPrefs.GetInt("Egg") * Price[i]))
+            if (PlayerPrefs.GetInt(Items[i + 3]) < (PlayerPrefs.GetInt("Egg") * Price[i]))
             {
                 return false;
             }
@@ -99,27 +138,29 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public static void BuyEgg()
+    public void BuyEgg()
     {
         //add an egg sprite to the nest
         for (int i = 0; i < Price.Length; i++)
         {
             PlayerPrefs.SetInt(Items[i + 3], (PlayerPrefs.GetInt(Items[i + 3]) - PlayerPrefs.GetInt("NestLevel") * Price[i]));
         }
-        egg = true;
+        egg.SetActive(true);
+        eggSprite.sprite = WholeEgg;
         PlayerPrefs.SetInt("Egg", PlayerPrefs.GetInt("Egg") + 1);
     }
 
     public void HatchEgg()
     {
-        //change egg's sprite to a hatched egg
+        eggSprite.sprite = HatchedEgg;
         //add gift prefab
         //add fairy prefab
     }
 
-    public static void CollectEgg()
+    //when the player collects the gift:
+    public void CollectEgg()
     {
-        //remove egg's sprite
-        egg = false;
+        eggSprite.sprite = WholeEgg;
+        egg.SetActive(false);  //remove egg's sprite
     }
 }
