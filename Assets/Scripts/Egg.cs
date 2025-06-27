@@ -18,20 +18,19 @@ public class Egg : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerPrefs.GetInt("NewEgg") == 1)
+        if (PlayerPrefs.GetInt("NewEggFlag") == 1)
         {
-            PlayerPrefs.SetInt("NewEgg", 0);
+            PlayerPrefs.SetInt("NewEggFlag", 0);
             eggSprite.sprite = WholeEgg;
         }
     }
 
     void OnMouseDown()
     {
-        if (eggSprite.sprite == WholeEgg)
+        if (eggSprite.sprite == WholeEgg)//&&if timer reached 0 ***
         {
-            //if timer reached 0:
             eggSprite.sprite = HatchedEgg;
-            PlayerPrefs.SetInt("EggHatched", 1);
+            PlayerPrefs.SetInt("EggHatchedFlag", 1);
         }
     }
 }

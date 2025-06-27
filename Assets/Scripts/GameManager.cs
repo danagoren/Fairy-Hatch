@@ -1,4 +1,4 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static string[] Items = { "NestLevel", "XP", "EggCount", "Flower1", "Flower2", "Flower3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
+    private static string[] Items = { "NestLevel", "XP", "EggCount", "Flowers1", "Flowers2", "Flowers3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
     private static int[] Price = { 3, 3, 3 };
     [SerializeField] GameObject[] Fairies;
     [SerializeField] GameObject egg;
     SpriteRenderer eggSprite;
 
-    public static bool isEggAvailable = false; // a flag to know if we have enough collectables to purchase an egg
+    public static bool isEggAvailable = false; // a flag to know if we have enough collectibles to purchase an egg
 
 
     void Start()
@@ -23,33 +23,35 @@ public class GameManager : MonoBehaviour
 
         Test(); // test
 
-        //flags:
-        PlayerPrefs.SetInt("NewEgg", 0);
-        PlayerPrefs.SetInt("PendingEgg", 0);
-        PlayerPrefs.SetInt("EggHatched", 0);
-        PlayerPrefs.SetInt("FairyCollected", 0);
-        PlayerPrefs.SetInt("FairyQueue", 0);
+        //initiate flags:
+        PlayerPrefs.SetInt("NewEggFlag", 0);
+        PlayerPrefs.SetInt("PendingEggFlag", 0);
+        PlayerPrefs.SetInt("EggHatchedFlag", 0);
+        PlayerPrefs.SetInt("FairyCollectedFlag", 0);
+        //PlayerPrefs.SetInt("FairyQueue", 0);  //for an alternative implemantation of the method SpawnFairy
     }
 
     void Update()
     {
+        //PrintTest(); //temp
+
+        //check flags:
         isEggAvailable = IsEggAvailable(); // update flag
-        if (PlayerPrefs.GetInt("PendingEgg") == 1)
+        if (PlayerPrefs.GetInt("PendingEggFlag") == 1)
         {
-            PlayerPrefs.SetInt("PendingEgg", 0);
+            PlayerPrefs.SetInt("PendingEggFlag", 0);
             BuyEgg();
         }
-        if (PlayerPrefs.GetInt("EggHatched") == 1)
+        if (PlayerPrefs.GetInt("EggHatchedFlag") == 1)
         {
-            PlayerPrefs.SetInt("EggHatched", 0);
-            HatchEgg();
+            PlayerPrefs.SetInt("EggHatchedFlag", 0);
+            SpawnFairy();
         }
-        if (PlayerPrefs.GetInt("FairyCollected") == 1)
+        if (PlayerPrefs.GetInt("FairyCollectedFlag") == 1)
         {
-            PlayerPrefs.SetInt("FairyCollected", 0);
+            PlayerPrefs.SetInt("FairyCollectedFlag", 0);
             CollectEgg();
         }
-        PrintTest(); //temp
     }
 
     void Test()
@@ -58,9 +60,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Flowers2", 1000);
         PlayerPrefs.SetInt("Flowers3", 1000);
     }
+
     void PrintTest()
     {
-        /*string testStr = "";
+        string testStr = "";
         for (int i = 0; i < Items.Length; i++)
         {
             testStr += Items[i] + ": " + PlayerPrefs.GetInt(Items[i]);
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
                 testStr += ",    ";
             }
         }
-        Debug.Log(testStr);*/
+        Debug.Log(testStr);
     }
 
     private void SetInventory()
@@ -80,12 +83,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(Items[i], 0);
         }
     }
-    public static void AddCollectable(string str, int num)
+
+    public static void AddCollectible(string str, int num)
     {
-        PlayerPrefs.SetInt(str, (PlayerPrefs.GetInt(str) + num));
+        PlayerPrefs.SetInt(str, (PlayerPrefs.GetInt(str) + num)); //update inventory
         if (str == "Fairy1" || str == "Fairy2" || str == "Fairy3")
         {
-            PlayerPrefs.SetInt("FairyCollected", 1);
+            PlayerPrefs.SetInt("FairyCollectedFlag", 1);
             AddXP(20 * num);
         }
         else
@@ -103,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Checks if the nest need to be upgraded based on the XP count. 
+    //Checks if the nest need to be upgraded based on the XP count 
     private static bool NestUpgradeNeeded()
     {
         switch (PlayerPrefs.GetInt("XP"))
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
         //upgrade nest's sprite
     }
 
+    //a new egg is available only if there isn't already one in the nest, and the player can afford its price
     public bool IsEggAvailable()
     {
         if (egg.activeSelf)
@@ -130,7 +135,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < Price.Length; i++)
         {
-            if (PlayerPrefs.GetInt("Flowers" + (i+1).ToString()) < (PlayerPrefs.GetInt("EggCount"+1) * Price[i]))
+            if (PlayerPrefs.GetInt("Flowers" + (i + 1).ToString()) < ((PlayerPrefs.GetInt("EggCount")+1) * Price[i]))
             {
                 return false;
             }
@@ -142,17 +147,27 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < Price.Length; i++)
         {
-            PlayerPrefs.SetInt("Flowers" + (i + 1).ToString(), (PlayerPrefs.GetInt("Flowers" + (i + 1).ToString()) - PlayerPrefs.GetInt("EggCount"+1) * Price[i]));
+            PlayerPrefs.SetInt("Flowers" + (i + 1).ToString(), (PlayerPrefs.GetInt("Flowers" + (i + 1).ToString()) - (PlayerPrefs.GetInt("EggCount") + 1) * Price[i]));
         }
-        PlayerPrefs.SetInt("EggCount"+1, PlayerPrefs.GetInt("EggCount"+1) + 1);
+        PlayerPrefs.SetInt("EggCount", PlayerPrefs.GetInt("EggCount") + 1);
         egg.SetActive(true);
-        PlayerPrefs.SetInt("NewEgg", 1);
+        PlayerPrefs.SetInt("NewEggFlag", 1);
     }
 
-    public void HatchEgg()
+    //Spawn fairies. fairy1, fairy2, and fairy3 are being spawned randomly with a ratio of 4:3:2
+    public void SpawnFairy()
     {
-        Instantiate(Fairies[PlayerPrefs.GetInt("FairyQueue") % 3]); //add a prefab of the next fairy in line
-        PlayerPrefs.SetInt("FairyQueue", PlayerPrefs.GetInt("FairyQueue") + 1); //fairy line ++
+        int i = Random.Range(0, 9);
+        switch (i)
+        {
+            case var n when n < 4: Instantiate(Fairies[0]); return;
+            case var n when n < 7: Instantiate(Fairies[1]); return;
+            case var n when n < 9: Instantiate(Fairies[2]); return;
+        }
+
+        //another implementation with a queue:
+        //Instantiate(Fairies[PlayerPrefs.GetInt("FairyQueue") % 3]); //add a prefab of the next fairy in line
+        //PlayerPrefs.SetInt("FairyQueue", PlayerPrefs.GetInt("FairyQueue") + 1); //fairy line ++
     }
 
     //When the player collects a fairy, delete egg

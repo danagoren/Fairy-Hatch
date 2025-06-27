@@ -31,8 +31,7 @@ public class BuyButton : MonoBehaviour
     {
         if (GameManager.isEggAvailable)
         {
-            PlayerPrefs.SetInt("PendingEgg", 1);
-            Debug.Log("pending egg");
+            PlayerPrefs.SetInt("PendingEggFlag", 1);
         } 
     }
 }

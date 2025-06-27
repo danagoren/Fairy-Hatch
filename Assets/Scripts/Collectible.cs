@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+public class Collectible : MonoBehaviour
 {
     void Start()
     {
@@ -15,7 +15,7 @@ public class Collectable : MonoBehaviour
 
     void OnMouseDown()
     {
-        GameManager.AddCollectable(gameObject.tag, 1);
+        GameManager.AddCollectible(gameObject.tag, 1);
         Destroy(gameObject);
     }
 }
