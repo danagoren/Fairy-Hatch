@@ -1,6 +1,8 @@
 //using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 //using System.Diagnostics;
 using UnityEngine;
 
@@ -9,14 +11,17 @@ public class GameManager : MonoBehaviour
     private static string[] Items = { "NestLevel", "XP", "EggCount", "Flowers1", "Flowers2", "Flowers3", "Fairy1", "Fairy2", "Fairy3", "Branch" };
     private static int[] Price = { 3, 3, 3 };
     [SerializeField] GameObject[] Fairies;
+    [SerializeField] GameObject[] Flowers;
     [SerializeField] GameObject egg;
     SpriteRenderer eggSprite;
 
     public static bool isEggAvailable = false; // a flag to know if we have enough collectibles to purchase an egg
+    public bool tutorialFlag = false;
 
 
     void Start()
     {
+        StartCoroutine(SpawnFlowers());
         eggSprite = egg.GetComponent<SpriteRenderer>();
         egg.SetActive(false);
         SetInventory();
@@ -28,6 +33,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("PendingEggFlag", 0);
         PlayerPrefs.SetInt("EggHatchedFlag", 0);
         PlayerPrefs.SetInt("FairyCollectedFlag", 0);
+
         //PlayerPrefs.SetInt("FairyQueue", 0);  //for an alternative implemantation of the method SpawnFairy
     }
 
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 0; i < Price.Length; i++)
         {
-            if (PlayerPrefs.GetInt("Flowers" + (i + 1).ToString()) < ((PlayerPrefs.GetInt("EggCount")+1) * Price[i]))
+            if (PlayerPrefs.GetInt("Flowers" + (i + 1).ToString()) < ((PlayerPrefs.GetInt("EggCount") + 1) * Price[i]))
             {
                 return false;
             }
@@ -154,15 +160,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("NewEggFlag", 1);
     }
 
-    //Spawn fairies. fairy1, fairy2, and fairy3 are being spawned randomly with a ratio of 4:3:2
+    //Spawn fairies. fairy1, fairy2, and fairy3 are being spawned randomly with a ratio of 4:2:1
     public void SpawnFairy()
     {
-        int i = Random.Range(0, 9);
+        int i = Random.Range(0, 7);
         switch (i)
         {
-            case var n when n < 4: Instantiate(Fairies[0]); return;
-            case var n when n < 7: Instantiate(Fairies[1]); return;
-            case var n when n < 9: Instantiate(Fairies[2]); return;
+            case var n when n < 4: Instantiate(Fairies[0]); Debug.Log("0"); return;
+            case var n when n < 6: Instantiate(Fairies[1]); return;
+            case var n when n < 7: Instantiate(Fairies[2]); return;
         }
 
         //another implementation with a queue:
@@ -174,5 +180,38 @@ public class GameManager : MonoBehaviour
     public void CollectEgg()
     {
         egg.SetActive(false);
+    }
+
+
+    public IEnumerator SpawnFlowers()
+    {
+        while (true)
+        {
+            int i = Random.Range(0, 7); //picks a flower type
+            float j = Random.Range(-7, 7); //picks the flower's x position
+            GameObject flower;
+            if (i < 4)
+            {
+                flower = Instantiate(Flowers[0], new Vector3(j, 4.6f, 0), Quaternion.identity);
+            }
+            else if (i < 6)
+            {
+                flower = Instantiate(Flowers[1], new Vector3(j, 4.6f, 0), Quaternion.identity);
+            }
+            else
+            {
+                flower = Instantiate(Flowers[2], new Vector3(j, 4.6f, 0), Quaternion.identity);
+            }
+            flower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -2f);
+            StartCoroutine(DestroyOutOfFrame(flower));
+            //await Task.Delay(2000);
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    IEnumerator DestroyOutOfFrame(GameObject flower)
+    {
+        yield return new WaitForSeconds(6);
+        Destroy(flower);
     }
 }
