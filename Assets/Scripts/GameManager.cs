@@ -160,13 +160,29 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("NewEggFlag", 1);
     }
 
-    //Spawn fairies. fairy1, fairy2, and fairy3 are being spawned randomly with a ratio of 4:2:1
+    //Spawn fairies. fairy1, fairy2, and fairy3 are being spawned randomly with a ratio of 4:2:1 (starting from the 4th fairy)
     public void SpawnFairy()
     {
+        if (PlayerPrefs.GetInt("EggCount") == 1) //first fairy
+        {
+            Instantiate(Fairies[0]);
+            return;
+        }
+        if (PlayerPrefs.GetInt("EggCount") <= 3) //2nd and 3rd fairy
+        {
+            int j = Random.Range(0, 3);
+            if (j < 2)
+            {
+                Instantiate(Fairies[0]);
+                return;
+            }
+            Instantiate(Fairies[1]);
+            return;  
+        }
         int i = Random.Range(0, 7);
         switch (i)
         {
-            case var n when n < 4: Instantiate(Fairies[0]); Debug.Log("0"); return;
+            case var n when n < 4: Instantiate(Fairies[0]); return;
             case var n when n < 6: Instantiate(Fairies[1]); return;
             case var n when n < 7: Instantiate(Fairies[2]); return;
         }
