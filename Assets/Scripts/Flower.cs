@@ -7,13 +7,15 @@ public class Flower : Collectible
     // Start is called before the first frame update
     void Start()
     {
-        //fall 
-        
+        GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -2f); //fall down
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if reached a low point destroy
+        if (transform.position.y < -5) //when out of frame, destroy
+        {
+            Destroy(gameObject);
+        }
     }
 }

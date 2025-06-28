@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
             case var n when n < 7: Instantiate(Fairies[2]); return;
         }
 
-        //another implementation with a queue:
+        //another implementation, with a queue:
         //Instantiate(Fairies[PlayerPrefs.GetInt("FairyQueue") % 3]); //add a prefab of the next fairy in line
         //PlayerPrefs.SetInt("FairyQueue", PlayerPrefs.GetInt("FairyQueue") + 1); //fairy line ++
     }
@@ -218,16 +218,8 @@ public class GameManager : MonoBehaviour
             {
                 flower = Instantiate(Flowers[2], new Vector3(j, 4.6f, 0), Quaternion.identity);
             }
-            flower.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, -2f);
-            StartCoroutine(DestroyOutOfFrame(flower));
             //await Task.Delay(2000);
             yield return new WaitForSeconds(2f);
         }
-    }
-
-    IEnumerator DestroyOutOfFrame(GameObject flower)
-    {
-        yield return new WaitForSeconds(6);
-        Destroy(flower);
     }
 }
