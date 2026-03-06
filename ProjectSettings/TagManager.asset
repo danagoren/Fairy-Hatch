@@ -11,6 +11,8 @@ TagManager:
   - Fairy2
   - Fairy3
   - Branch
+  - BuyButton
+  - InfoButton
   layers:
   - Default
   - TransparentFX

@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class Egg : MonoBehaviour
 {
-    SpriteRenderer eggSprite;
-    [SerializeField] Sprite WholeEgg;
-    [SerializeField] Sprite HatchedEgg;
+    [SerializeField] private Sprite WholeEgg;
+    [SerializeField] private Sprite HatchedEgg;
+    private SpriteRenderer sr;
 
-    // Start is called before the first frame update
     public void Start()
     {
-        eggSprite = GetComponent<SpriteRenderer>();
-        eggSprite.sprite = WholeEgg;
+        Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (PlayerPrefs.GetInt("NewEggFlag") == 1)
-        {
-            PlayerPrefs.SetInt("NewEggFlag", 0);
-            eggSprite.sprite = WholeEgg;
-        }
     }
 
-    void OnMouseDown()
+    public void Init()
     {
-        if (eggSprite.sprite == WholeEgg)//&&if timer reached 0 ***
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = WholeEgg;
+        gameObject.SetActive(true);
+    }
+
+    private void OnMouseDown()
+    {
+        if (sr.sprite == WholeEgg)//&&if timer reached 0
         {
-            eggSprite.sprite = HatchedEgg;
-            PlayerPrefs.SetInt("EggHatchedFlag", 1);
+            sr.sprite = HatchedEgg;
+            GameManager.Instance.SpawnFairy();
         }
     }
 }

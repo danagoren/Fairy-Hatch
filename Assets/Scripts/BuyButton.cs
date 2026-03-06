@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class BuyButton : MonoBehaviour
 {
-    [SerializeField] Sprite ButtonOn;
-    [SerializeField] Sprite ButtonOff;
-
-    SpriteRenderer SR;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Sprite buttonOn; 
+    [SerializeField] private Sprite buttonOff;
+    private bool buttonState = true;
+    private SpriteRenderer sr;
+    private void Start()
     {
-        SR = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
+        buttonState = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (GameManager.isEggAvailable)
+        buttonState = GameManager.Instance.IsEggAvailable();
+        if (buttonState)
         {
-            SR.sprite = ButtonOn;
+            sr.sprite = buttonOn;
         }
         else
         {
-            SR.sprite = ButtonOff;
+            sr.sprite = buttonOff;
         }
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
-        if (GameManager.isEggAvailable)
+        if (buttonState)
         {
-            PlayerPrefs.SetInt("PendingEggFlag", 1);
-        } 
+            GameManager.Instance.BuyEgg();
+        }
     }
 }

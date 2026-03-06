@@ -306,15 +306,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fairies:
-  - {fileID: 2710191923783720045, guid: d3e909bcb77fa441a9fef7bd064db3ec, type: 3}
-  - {fileID: 2710191923783720045, guid: a0f7b25b8240b4f4d8db72133ca38d00, type: 3}
-  - {fileID: 2710191923783720045, guid: 35f11862c4bff44c29221fee3d988290, type: 3}
+  - {fileID: -658183242000152649, guid: d3e909bcb77fa441a9fef7bd064db3ec, type: 3}
+  - {fileID: -2433337663818911992, guid: a0f7b25b8240b4f4d8db72133ca38d00, type: 3}
+  - {fileID: -2735146669568618980, guid: 35f11862c4bff44c29221fee3d988290, type: 3}
   Flowers:
-  - {fileID: 560414737607151836, guid: 56c6b208240c6458f8b2bec1ea0f71de, type: 3}
-  - {fileID: 560414737607151836, guid: c39370ca70e444fca995c74fc4ca270a, type: 3}
-  - {fileID: 560414737607151836, guid: 7c6254b2573bf4a699f423cfc77c14ab, type: 3}
-  egg: {fileID: 1786900459}
-  tutorialFlag: 0
+  - {fileID: 7744860036817801886, guid: 56c6b208240c6458f8b2bec1ea0f71de, type: 3}
+  - {fileID: -4159308686717001026, guid: c39370ca70e444fca995c74fc4ca270a, type: 3}
+  - {fileID: -5941291564648035447, guid: 7c6254b2573bf4a699f423cfc77c14ab, type: 3}
+  egg: {fileID: 1786900463}
+  infoOverlay: {fileID: 1236350503}
 --- !u!4 &484824814
 Transform:
   m_ObjectHideFlags: 0
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 622953843}
   m_Layer: 0
   m_Name: BuyButton
-  m_TagString: Untagged
+  m_TagString: BuyButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -672,8 +672,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469fef468b3de41219b14d7d5ec8c3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonOn: {fileID: 682286369, guid: cc0dd540141ae1f4faa7ef46c11797a2, type: 3}
-  ButtonOff: {fileID: -1065175167, guid: cc0dd540141ae1f4faa7ef46c11797a2, type: 3}
+  gameManager: {fileID: 484824813}
+  buttonOn: {fileID: 682286369, guid: cc0dd540141ae1f4faa7ef46c11797a2, type: 3}
+  buttonOff: {fileID: -1065175167, guid: cc0dd540141ae1f4faa7ef46c11797a2, type: 3}
 --- !u!61 &622953843
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -729,9 +730,11 @@ GameObject:
   m_Component:
   - component: {fileID: 774092885}
   - component: {fileID: 774092884}
+  - component: {fileID: 774092886}
+  - component: {fileID: 774092887}
   m_Layer: 0
   m_Name: InfoButton
-  m_TagString: Untagged
+  m_TagString: InfoButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -803,6 +806,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774092886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774092883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f99561d967394ff0abbd3947fadcadc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 484824813}
+--- !u!61 &774092887
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774092883}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.34}
+    newSize: {x: 0.16, y: 0.34}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.34}
+  m_EdgeRadius: 0
 --- !u!1 &1132658612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1686,6 +1747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16b5b3f9176745f9a10d2280da60322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 484824813}
   WholeEgg: {fileID: 479033500, guid: 6a63b305f0e1cef49bbc99cef8e889c7, type: 3}
   HatchedEgg: {fileID: -1958603221, guid: cc0dd540141ae1f4faa7ef46c11797a2, type: 3}
 --- !u!1 &1878394066
