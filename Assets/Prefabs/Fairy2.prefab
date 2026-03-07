@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -680341830, guid: d7eeb649c4c21e64988069b53bf78000, type: 3}
+  m_Sprite: {fileID: -1657241142, guid: 75dc0f831e70216438b1cb454cb75115, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -134,5 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fairySprites:
-  - {fileID: -680341830, guid: d7eeb649c4c21e64988069b53bf78000, type: 3}
-  - {fileID: 1561923120, guid: 2945b4118400b954ca778e5927642851, type: 3}
+  - {fileID: -1657241142, guid: 75dc0f831e70216438b1cb454cb75115, type: 3}
+  - {fileID: 1799507254, guid: 75dc0f831e70216438b1cb454cb75115, type: 3}
+  - {fileID: -1195036797, guid: 75dc0f831e70216438b1cb454cb75115, type: 3}
