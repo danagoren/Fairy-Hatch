@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Flower[] Flowers;
     [SerializeField] private Egg egg;
     [SerializeField] private GameObject infoOverlay;
+    [SerializeField] private GameObject timerObject;
     [SerializeField] private Vector3 spawnFairyPoint = new Vector3(0, 0, 0);
     [SerializeField] private float aboveScreen = 4.6f;
     [SerializeField] private float leftSpawnFlowerRange = -7f;
@@ -20,14 +23,19 @@ public class GameManager : MonoBehaviour
     private float timePassedFlower = 0;
     Fairy fairy;
     private int eggCount = 0;
-    //add: priceCalculator(eggCount), print price on Update (hover), timer, maybe upgrade nest
+    [SerializeField] private TextMeshProUGUI TimerNum;
+    public float timer;
+    private int timerMinutes;
+    private int timerSeconds;
+    //add: priceCalculator(eggCount), print price on Update (hover), timer, maybe upgrade nest, call GetItem()
     public enum ItemType
     {
-        XP, Fairy1, Fairy2, Fairy3, Flower1, Flower2, Flower3
+        XP, Fairy1, Fairy2, Fairy3, Flower1, Flower2, Flower3, Leaf, Branch
     }
 
     private void Awake()
     {
+        timerObject.SetActive(false);
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -43,20 +51,27 @@ public class GameManager : MonoBehaviour
         egg.gameObject.SetActive(false);
         timePassedFlower = 0;
         eggCount = 0;
+        timerObject.SetActive(false);
+        timer = 0.01f;
+        timerMinutes = 0;
+        timerSeconds = 0;
     }
 
     private void Update()
     {
         SpawnFlowers();
+        UpdateTimer();
+        if (timer <= 1) timerObject.SetActive(false); //+ egg clickable
     }
 
-    public void InventoryLog()
+    public void InventoryLog() //for testing
     {
-        Debug.Log("Fairy1=" + inventory[ItemType.Fairy1] + " Fairy2=" + inventory[ItemType.Fairy2] + " Fairy3=" + inventory[ItemType.Fairy3] + " Flower1=" + inventory[ItemType.Flower1] + " Flower2=" + inventory[ItemType.Flower2] + " Flower3=" + inventory[ItemType.Flower3] + " eggCount:" + eggCount);
+        Debug.Log("Fairy1=" + inventory[ItemType.Fairy1] + " Fairy2=" + inventory[ItemType.Fairy2] + " Fairy3=" + inventory[ItemType.Fairy3] + " Flower1=" + inventory[ItemType.Flower1] + " Flower2=" + inventory[ItemType.Flower2] + " Flower:" + inventory[ItemType.Flower3] + " eggCount:" + eggCount + " Leaf:" + inventory[ItemType.Leaf] + " Branch:" + inventory[ItemType.Branch]);
     }
 
     public void AddItem(ItemType type, int amount)
     {
+        if (type == ItemType.Fairy1 || type == ItemType.Fairy2 || type == ItemType.Fairy3) timerObject.SetActive(false);
         inventory[type] += amount;
         if (inventory[type] < 0) inventory[type] = 0;
         InventoryLog();
@@ -76,6 +91,8 @@ public class GameManager : MonoBehaviour
         //check funds
         egg.Init();
         eggCount += 1;
+        timerObject.SetActive(true);
+        timer = (eggCount * 5) + 1;
         return true;
     }
     public void SpawnFairy() //add ratio
@@ -89,8 +106,8 @@ public class GameManager : MonoBehaviour
         {
             timePassedFlower = 0;
             int flowerIndex = Random.Range(0, Flowers.Length);
-            Vector3 flowerPoint = new Vector3(Random.Range(leftSpawnFlowerRange, rightSpawnFlowerRange), aboveScreen, 0);
-            Instantiate(Flowers[flowerIndex], flowerPoint, Quaternion.identity);
+            Vector3 flowerPosition = new Vector3(Random.Range(leftSpawnFlowerRange, rightSpawnFlowerRange), aboveScreen, 0);
+            Instantiate(Flowers[flowerIndex], flowerPosition, Quaternion.identity);
         }
         timePassedFlower += Time.deltaTime;
     }
@@ -102,5 +119,12 @@ public class GameManager : MonoBehaviour
     public void CollectEgg()
     {
         egg.gameObject.SetActive(false);
+    }
+        private void UpdateTimer()
+    {
+        timer -= Time.deltaTime;
+        timerMinutes = (int)(timer / 60f);
+        timerSeconds = (int)(timer % 60f);
+        TimerNum.text = $"{timerMinutes}:{timerSeconds:00}";
     }
 }

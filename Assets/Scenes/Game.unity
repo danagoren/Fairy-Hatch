@@ -400,12 +400,17 @@ MonoBehaviour:
   - {fileID: 7744860036817801886, guid: 56c6b208240c6458f8b2bec1ea0f71de, type: 3}
   - {fileID: -4159308686717001026, guid: c39370ca70e444fca995c74fc4ca270a, type: 3}
   - {fileID: -5941291564648035447, guid: 7c6254b2573bf4a699f423cfc77c14ab, type: 3}
+  - {fileID: -5941291564648035447, guid: c5b0474c316b744d5adb03986326b718, type: 3}
+  - {fileID: 9026812294332017771, guid: 51c9e4b7e18e34170bddb2734531f4aa, type: 3}
   egg: {fileID: 1786900463}
   infoOverlay: {fileID: 1236350503}
+  timerObject: {fileID: 1145138687}
   spawnFairyPoint: {x: 0, y: 0, z: 0}
   aboveScreen: 4.6
   leftSpawnFlowerRange: -7
   rightSpawnFlowerRange: 7
+  TimerNum: {fileID: 1145138689}
+  timer: 0
 --- !u!4 &484824814
 Transform:
   m_ObjectHideFlags: 0
@@ -1155,8 +1160,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19, y: 375}
-  m_SizeDelta: {x: 297.416, y: 123.9018}
+  m_AnchoredPosition: {x: 35, y: -50}
+  m_SizeDelta: {x: 148.71, y: 91.0178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1145138689
 MonoBehaviour:
@@ -1205,8 +1210,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
-  m_fontSizeBase: 150
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1241,7 +1246,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -30.137299, y: 2.3182983, z: -46.365112, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

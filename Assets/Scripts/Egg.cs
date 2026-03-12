@@ -26,7 +26,7 @@ public class Egg : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (sr.sprite == WholeEgg)//&&if timer reached 0
+        if (sr.sprite == WholeEgg && GameManager.Instance.timer <= 1)//&&if timer reached 0
         {
             sr.sprite = HatchedEgg;
             GameManager.Instance.SpawnFairy();

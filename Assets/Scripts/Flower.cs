@@ -25,6 +25,8 @@ public class Flower : MonoBehaviour
         if (gameObject.tag == "Flower1") GameManager.Instance.AddItem(GameManager.ItemType.Flower1, 1);
         if (gameObject.tag == "Flower2") GameManager.Instance.AddItem(GameManager.ItemType.Flower2, 1);
         if (gameObject.tag == "Flower3") GameManager.Instance.AddItem(GameManager.ItemType.Flower3, 1);
+        if (gameObject.tag == "Leaf") GameManager.Instance.AddItem(GameManager.ItemType.Flower3, 1);
+        if (gameObject.tag == "Branch") GameManager.Instance.AddItem(GameManager.ItemType.Flower3, 1);
         Destroy(gameObject);
     }
 }
